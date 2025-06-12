@@ -36,14 +36,15 @@ public class LogDemoController {
      * [e331343c-478d-4dcc-82e6-e322932087e9] request scope bean close:hello.core.common.MyLogger@75c79ff9
      * */
     private final LogDemoService logDemoService;
-    private final ObjectProvider<MyLogger> myLoggerProvider;
+    private final MyLogger myLogger;
 
     @RequestMapping("log-demo")
     @ResponseBody
     public String logDemo(HttpServletRequest request) {
-        MyLogger myLogger = myLoggerProvider.getObject();
         String requestURL = request.getRequestURL().toString();
         myLogger.setRequestURL(requestURL);
+
+        System.out.println(myLogger.getClass());
 
         myLogger.log("controller test");
         logDemoService.logic("testId");
